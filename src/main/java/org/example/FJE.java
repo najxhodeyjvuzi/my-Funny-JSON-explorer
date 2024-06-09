@@ -1,20 +1,16 @@
 package org.example;
 
-import org.example.jsonReader.jsonReader;
+import org.example.builder.AbstractBuilder;
+import org.example.builder.Director;
+import org.example.builder.RectangleBuilder;
+import org.example.builder.TreeBuilder;
+import org.example.composite.Component;
+import org.example.composite.Composite;
+import org.example.composite.Map2Component;
+import org.example.jsonreader.JsonReader;
 import picocli.CommandLine;
 
 import java.util.Map;
-
-//public class Main {
-//    public static void main(String[] args) {
-//        printHelloWorld();
-//    }
-//
-//    public static void printHelloWorld() {
-//        jsonReader jsonReader = new jsonReader();
-//        Map map = jsonReader.jsonToMap();
-//    }
-//}
 
 @CommandLine.Command(name = "FJE", mixinStandardHelpOptions = true, version = "FJE 1.0",
         description = "FJE - JSON to Map")
@@ -34,8 +30,20 @@ public class FJE implements Runnable{
 
     @Override
     public void run() {
-        jsonReader jsonReader = new jsonReader();
+        JsonReader jsonReader = new JsonReader();
         Map map = jsonReader.jsonToMap(file);
+
+        Component root = new Composite("root",true,true);
+
+        // 使用递归构建树形结构
+        Map2Component.buildComponent(root, map);
+
+        AbstractBuilder builder = null;
+        if (style.equals("tree")) builder = new TreeBuilder();
+        if (style.equals("rectangle")) builder = new RectangleBuilder();
+
+        Director director = new Director(builder);
+        director.direct(root,icon);
     }
 
     public static void main(String[] args) {

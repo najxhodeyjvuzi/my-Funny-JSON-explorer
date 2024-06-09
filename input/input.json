@@ -1,12 +1,16 @@
 {
   "oranges": {
     "mandarin": {
-      "clementine": null,
+      "clementine": {
+        "A": null,
+        "B": null
+      },
       "tangerine": "cheap & juicy!"
     }
   },
   "apples": {
     "gala": null,
     "pink lady": null
-  }
+  },
+  "bananas": "only $1.00 per dozen!"
 }

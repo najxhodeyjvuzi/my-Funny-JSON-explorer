@@ -1,4 +1,4 @@
-package org.example.jsonReader;
+package org.example.jsonreader;
 
 import com.google.gson.Gson;
 
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
 
-public class jsonReader {
+public class JsonReader {
 
     public static Map jsonToMap(String filepath) {
         Gson gson = new Gson();
