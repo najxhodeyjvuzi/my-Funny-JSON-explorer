@@ -18,8 +18,6 @@ public class TreeBuilder implements AbstractBuilder{
 
     public void setPattern(String icon, ArrayList<Icon> icons) {
 
-
-
         if (icon.equals("1")) {
             PatternsFactory dotPatternsFacotry = new DotPatternsFacotry();
             process.treePattern = dotPatternsFacotry.createTreePattern(icons.get(0).getComposite(),icons.get(0).getLeaf());

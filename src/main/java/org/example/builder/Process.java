@@ -17,8 +17,10 @@ public class Process {
     public Printer printer;
 
     public void print() {
+
         Stack<Integer> stack = new Stack<>();
-        printer.print(jsonRoot,treePattern.composite,treePattern.leaf,-1,stack);
+        printer.print(jsonRoot, treePattern!= null ? treePattern.composite : rectanglePattern.composite
+                , treePattern != null ? treePattern.leaf : rectanglePattern.leaf, -1, stack);
     }
 
 }
