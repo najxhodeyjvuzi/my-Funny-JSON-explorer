@@ -11,7 +11,7 @@ public class TreePrinter implements Printer {
         ArrayList<Integer> indentList = new ArrayList<>(indent);
         int curIndent = 0;
         for (int i = 0; i < indentList.size(); i++) {
-            System.out.print("\t".repeat(indentList.get(i)-curIndent) + "│");
+            System.out.print("   ".repeat(indentList.get(i)-curIndent) + "│");
             curIndent = indentList.get(i);
         }
         return curIndent;
@@ -23,12 +23,12 @@ public class TreePrinter implements Printer {
             int remainingIndent = level - printIndent(indent);
             if (component.isLeaf()) {
                 if (component.getIsLast()) {
-                    System.out.print("\t".repeat(remainingIndent) + "└─" + leafIcon + component.getKey());
+                    System.out.print("   ".repeat(remainingIndent) + "└─" + leafIcon + component.getKey());
                     String value = component.getValue();
                     if (value != "") System.out.println(": " + value);
                     else System.out.println();
                 } else {
-                    System.out.print("\t".repeat(remainingIndent) + "├─" + leafIcon + component.getKey());
+                    System.out.print("   ".repeat(remainingIndent) + "├─" + leafIcon + component.getKey());
                     String value = component.getValue();
                     if (value != "") System.out.println(": " + value);
                     else System.out.println();
@@ -38,13 +38,13 @@ public class TreePrinter implements Printer {
             if (component.isComposite()) {
 
                 if (component.getIsLast()) {
-                    System.out.println("\t".repeat(remainingIndent) + "└─" + compositeIcon + component.getKey());
+                    System.out.println("   ".repeat(remainingIndent) + "└─" + compositeIcon + component.getKey());
                     for (Component child : component.getChildren()) {
                         print(child, compositeIcon, leafIcon, level + 1,indent);
                     }
                 } else {
                     indent.push(level);
-                    System.out.println("\t".repeat(remainingIndent) + "├─" + compositeIcon + component.getKey());
+                    System.out.println("   ".repeat(remainingIndent) + "├─" + compositeIcon + component.getKey());
                     for (Component child : component.getChildren()) {
                         print(child, compositeIcon, leafIcon, level + 1,indent);
                     }

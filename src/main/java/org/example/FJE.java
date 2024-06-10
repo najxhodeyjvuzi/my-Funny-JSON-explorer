@@ -25,9 +25,6 @@ public class FJE implements Runnable{
     @CommandLine.Option(names = {"-i", "--icon"}, description = "Icon family to use", required = true)
     private String icon;
 
-    @CommandLine.Option(names = {"-o", "--output"}, description = "Output file", required = false)
-    private String output;
-
     @Override
     public void run() {
         JsonReader jsonReader = new JsonReader();

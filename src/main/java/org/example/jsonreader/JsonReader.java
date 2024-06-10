@@ -22,10 +22,10 @@ public class JsonReader {
             throw new RuntimeException(e);
         }
         Map map = gson.fromJson(json, Map.class);
-        System.out.println(map);
+//        System.out.println(map);
 //      考虑嵌套，逐级输出
 //      这里考虑不知道有多少层级，所以用递归
-        printMap(map, 0);
+//        printMap(map, 0);
         return map;
     }
 

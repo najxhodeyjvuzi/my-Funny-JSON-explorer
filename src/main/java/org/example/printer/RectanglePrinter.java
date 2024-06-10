@@ -82,10 +82,10 @@ public class RectanglePrinter implements Printer {
             return;
         }
 
-        int remainingIndent = level - printIndent(indent, "│","\t");
+        int remainingIndent = level - printIndent(indent, "│","   ");
 
         if (component.isComposite()) {
-            System.out.print("\t".repeat(remainingIndent) + "├─ " + compositeIcon + component.getKey() + " ─");
+            System.out.print("   ".repeat(remainingIndent) + "├─ " + compositeIcon + component.getKey() + " ─");
             System.out.print("─".repeat(maxWidth - component.getKey().length() - 4 * level));
             System.out.println("┤");
             indent.push(level);
@@ -95,7 +95,7 @@ public class RectanglePrinter implements Printer {
             }
             indent.pop();
         } else if (component.isLeaf()) {
-            System.out.print("\t".repeat(remainingIndent) + "├─ " + leafIcon + component.getKey() );
+            System.out.print("   ".repeat(remainingIndent) + "├─ " + leafIcon + component.getKey() );
             if (component.getValue() != "")
                 System.out.print(": " + component.getValue() + " ─");
             else
