@@ -208,18 +208,6 @@ public void direct(Component root, String icon)  {
 
 
 
-
-
-#### github源码
-
-https://github.com/najxhodeyjvuzi/my-Funny-JSON-explorer.git
-
-
-
-
-
-
-
 # NEW：HW4 新增迭代者模式+策略模式
 
 
@@ -255,13 +243,90 @@ public class ChildrenIterator implements Iterator{
 }
 ```
 
-当然了，因为本次作业中仅仅涉及到对儿子的访问，而不需要对树结构做深度优先遍历，广度优先遍历等遍历，因此，这里只实现了一个种类的迭代器。如果后续还需要有其他的遍历需求，我们只需要相应地继承`Iterator`接口，并实现我们想要的迭代器即可。
+<img src="https://raw.githubusercontent.com/najxhodeyjvuzi/Personal-Image-Hosting/main/image-20240613164417003.png" alt="image-20240613164417003" style="zoom:67%;" />
 
+当然了，因为**本次作业中仅仅涉及到对儿子的访问**，而不需要对树结构做深度优先遍历，广度优先遍历等遍历，因此，这里只实现了一个种类的迭代器。如果后续还需要有其他的遍历需求，我们只需要相应地继承`Iterator`接口，并实现我们想要的迭代器即可。
 
+对比采用迭代器模式前后的部分代码，如下（注释部分即修改前，需要手动获取组合模式节点的儿子成员，并人为地进行枚举）：
+
+```java
+//for (Component child : component.getChildren()) {
+while (iter.hasNextChild()) {
+    Component child = iter.nextChild();
+    print(child, compositeIcon, leafIcon, level + 1, indent);
+}
+```
 
 
 
 #### 策略模式
+
+策略模式的目的主要在于，对一个我们需要完成的任务，在其中一个部分，可能可以采取多种不同的策略进行，而其他部分维持不变。
+
+策略模式的作用就在于，可以让我们灵活的替换任务中间，可以变化的策略部分，方便我们在任意时候决定解决问题的策略。
+
+也因此，策略模式需要一个上下文的存在，即`Context`。在本次实验中，相关类图实现如下，因为这里仅涉及两种风格的输出，因此需要两种不同的策略：
+
+<img src="https://raw.githubusercontent.com/najxhodeyjvuzi/Personal-Image-Hosting/main/image-20240613164349875.png" alt="image-20240613164349875" style="zoom:67%;" />
+
+策略的代码实现如下：
+
+```java
+public interface Strategy {
+    AbstractBuilder excuteCreateStrategy();
+}
+
+
+public class TreeStrategy implements Strategy{
+    @Override
+    public AbstractBuilder excuteCreateStrategy() {
+        return new TreeBuilder();
+    }
+}
+
+public class StrategyContext {
+    Strategy strategy;
+
+    public StrategyContext(Strategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void excuteStrategy(Component root, String icon) {
+        Director director = new Director(strategy.excuteCreateStrategy());
+        director.direct(root, icon);
+    }
+}
+```
+
+最后在程序的`Main`入口中采用策略如下：
+
+```java
+StrategyContext context = null;
+if (style.equals("tree")) context = new StrategyContext(new TreeStrategy());
+if (style.equals("rectangle")) context = new StrategyContext(new RectangleStrategy());
+
+context.excuteStrategy(root,icon);
+```
+
+
+
+#### 结果验证
+
+与上面采用同样的打包操作，并进行相同的结果测试，可以验证项目无误。
+
+<img src="C:\Users\13030\AppData\Roaming\Typora\typora-user-images\image-20240613165359596.png" alt="image-20240613165359596" style="zoom:33%;" />
+
+<img src="C:\Users\13030\AppData\Roaming\Typora\typora-user-images\image-20240613165411510.png" alt="image-20240613165411510" style="zoom:33%;" />
+
+
+
+#### github源码
+
+https://github.com/najxhodeyjvuzi/my-Funny-JSON-explorer.git
 
 
 
