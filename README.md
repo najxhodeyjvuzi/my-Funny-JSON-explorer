@@ -318,9 +318,9 @@ context.excuteStrategy(root,icon);
 
 与上面采用同样的打包操作，并进行相同的结果测试，可以验证项目无误。
 
-<img src="C:\Users\13030\AppData\Roaming\Typora\typora-user-images\image-20240613165359596.png" alt="image-20240613165359596" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/najxhodeyjvuzi/Personal-Image-Hosting/main/image-20240613165359596.png" alt="image-20240613165359596" style="zoom:33%;" />
 
-<img src="C:\Users\13030\AppData\Roaming\Typora\typora-user-images\image-20240613165411510.png" alt="image-20240613165411510" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/najxhodeyjvuzi/Personal-Image-Hosting/main/image-20240613165411510.png" alt="image-20240613165411510" style="zoom:33%;" />
 
 
 
