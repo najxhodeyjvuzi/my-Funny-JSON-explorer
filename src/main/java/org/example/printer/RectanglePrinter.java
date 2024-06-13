@@ -1,6 +1,7 @@
 package org.example.printer;
 
 import org.example.composite.Component;
+import org.example.iterator.ChildrenIterator;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -13,15 +14,20 @@ public class RectanglePrinter implements Printer {
     private int currentLine = 0;
 
     private void calculateMaxWidth(Component component, int level) {
+        ChildrenIterator iter = component.createChildrenIterator();
         if (component.getKey().equals("root")) {
-            for (Component child : component.getChildren()) {
+            while (iter.hasNextChild()) {
+//            for (Component child : component.getChildren()) {
+                Component child = iter.nextChild();
                 calculateMaxWidth(child, level + 1);
             }
         } else {
             lineCount++;
             if (component.isComposite()) {
                 maxWidth = Math.max(maxWidth, component.getKey().length() + 4 * level+3);
-                for (Component child : component.getChildren()) {
+                while (iter.hasNextChild()) {
+//                for (Component child : component.getChildren()) {
+                    Component child = iter.nextChild();
                     calculateMaxWidth(child, level + 1);
                 }
             } else if (component.isLeaf()) {
@@ -45,9 +51,12 @@ public class RectanglePrinter implements Printer {
     }
 
     private void exactDraw(Component component, String compositeIcon, String leafIcon, int level, Stack<Integer> indent) {
+        ChildrenIterator iter = component.createChildrenIterator();
         if (component.getKey().equals("root")) {
-            for (Component child : component.getChildren()) {
+            while(iter.hasNextChild()){
+//            for (Component child : component.getChildren()) {
                 currentLine++;
+                Component child = iter.nextChild();
                 exactDraw(child, compositeIcon, leafIcon, level + 1, indent);
             }
             return;
@@ -59,8 +68,10 @@ public class RectanglePrinter implements Printer {
                 System.out.print("─".repeat(maxWidth - component.getKey().length() - 4 * level));
                 System.out.println("┐");
                 indent.push(level);
-                for (Component child : component.getChildren()) {
+                while(iter.hasNextChild()){
+//                for (Component child : component.getChildren()) {
                     currentLine++;
+                    Component child = iter.nextChild();
                     exactDraw(child, compositeIcon, leafIcon, level + 1, indent);
                 }
                 indent.pop();
@@ -89,8 +100,10 @@ public class RectanglePrinter implements Printer {
             System.out.print("─".repeat(maxWidth - component.getKey().length() - 4 * level));
             System.out.println("┤");
             indent.push(level);
-            for (Component child : component.getChildren()) {
+            while(iter.hasNextChild()){
+//            for (Component child : component.getChildren()) {
                 currentLine++;
+                Component child = iter.nextChild();
                 exactDraw(child, compositeIcon, leafIcon, level + 1, indent);
             }
             indent.pop();

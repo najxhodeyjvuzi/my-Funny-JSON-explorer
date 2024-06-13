@@ -8,6 +8,10 @@ import org.example.composite.Component;
 import org.example.composite.Composite;
 import org.example.composite.Map2Component;
 import org.example.jsonreader.JsonReader;
+import org.example.strategy.RectangleStrategy;
+import org.example.strategy.Strategy;
+import org.example.strategy.StrategyContext;
+import org.example.strategy.TreeStrategy;
 import picocli.CommandLine;
 
 import java.util.Map;
@@ -35,12 +39,14 @@ public class FJE implements Runnable{
         // 使用递归构建树形结构
         Map2Component.buildComponent(root, map);
 
-        AbstractBuilder builder = null;
-        if (style.equals("tree")) builder = new TreeBuilder();
-        if (style.equals("rectangle")) builder = new RectangleBuilder();
+        StrategyContext context = null;
+        if (style.equals("tree")) context = new StrategyContext(new TreeStrategy());
+        if (style.equals("rectangle")) context = new StrategyContext(new RectangleStrategy());
 
-        Director director = new Director(builder);
-        director.direct(root,icon);
+        context.excuteStrategy(root,icon);
+
+//        Director director = new Director(builder);
+//        director.direct(root,icon);
     }
 
     public static void main(String[] args) {

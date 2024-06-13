@@ -1,14 +1,22 @@
 package org.example.composite;
 
-import java.util.ArrayList;
+import org.example.iterator.ChildrenIterator;
 
-public class Composite implements Component{
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Composite implements Component {
+
 
     private String key = "";
     private boolean isLast = false;
     private boolean isFirst = false;
 
-    public Composite(String key, boolean isLast,boolean isFirst) {
+    public ChildrenIterator createChildrenIterator() {
+        return  new ChildrenIterator(this);
+    }
+
+    public Composite(String key, boolean isLast, boolean isFirst) {
         this.key = key;
         this.isLast = isLast;
         this.isFirst = isFirst;
@@ -27,6 +35,7 @@ public class Composite implements Component{
     public boolean getIsLast() {
         return isLast;
     }
+
     public boolean getIsFirst() {
         return isFirst;
     }

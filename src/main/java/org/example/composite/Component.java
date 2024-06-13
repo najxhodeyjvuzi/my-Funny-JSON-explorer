@@ -1,8 +1,14 @@
 package org.example.composite;
 
+import org.example.iterator.ChildrenIterator;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public interface Component {
+
+    ChildrenIterator createChildrenIterator( );
+
     public String getKey();
     public String getValue();
 

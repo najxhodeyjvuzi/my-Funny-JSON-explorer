@@ -213,3 +213,55 @@ public void direct(Component root, String icon)  {
 #### github源码
 
 https://github.com/najxhodeyjvuzi/my-Funny-JSON-explorer.git
+
+
+
+
+
+
+
+# NEW：HW4 新增迭代者模式+策略模式
+
+
+
+#### 迭代者模式
+
+主要用于将组合模式所产生的树状结构对外界隐藏。外界无需关心是用`ArrayList`或者是用`LinkedList`实现儿子的存储，而只需要知道对于每个组合模式中的节点，都相应的有一个`ChildrenIterator`及其接口`hasNextChild()`和`nextChild()`，以此来实现对某节点儿子的迭代。
+
+具体的类图和实现如下：
+
+```java
+package org.example.iterator;
+
+import org.example.composite.Component;
+
+public class ChildrenIterator implements Iterator{
+    private final Component component;
+    private int currentComponent = 0;
+
+    public ChildrenIterator(Component com){
+        this.component = com;
+    }
+
+    @Override
+    public boolean hasNextChild() {
+        return currentComponent < component.getChildren().size();
+    }
+
+    @Override
+    public Component nextChild() {
+        return component.getChildren().get(currentComponent++);
+    }
+}
+```
+
+当然了，因为本次作业中仅仅涉及到对儿子的访问，而不需要对树结构做深度优先遍历，广度优先遍历等遍历，因此，这里只实现了一个种类的迭代器。如果后续还需要有其他的遍历需求，我们只需要相应地继承`Iterator`接口，并实现我们想要的迭代器即可。
+
+
+
+
+
+#### 策略模式
+
+
+
